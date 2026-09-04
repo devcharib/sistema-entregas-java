@@ -14,4 +14,12 @@ public class GlobalExceptionHandler {
             .status(HttpStatus.NOT_FOUND)
             .body(ex.getMessage());
     }
+
+    //revisao
+    @ExceptionHandler(MotoristaSemEntregaException.class)
+    public ResponseEntity<String> tratarMotoristaNaoEncontrado(MotoristaSemEntregaException ex) {
+        return  ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(ex.getMessage());
+    }
 }

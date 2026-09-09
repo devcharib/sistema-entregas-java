@@ -52,11 +52,17 @@ public class Entrega {
         this.status = status;
     }
 
+    //Setter simples, para atualização deral (PUT comum)
+    public void setMotorista(String motorista) {
+        this.motorista = motorista;
+    }
+
+    //metodo de negócio específico, com justificativa - JAVA nao permite reaproveiar metodo e ass iguais
     //revisao - caso o motorista fique doente/problema antes de concluir a entrega
-    public void setMotorista(String motorista, String status) {
+    public void trocarMotorista(String motorista, String motivo) {
         //.equals para String
         // ==  para int, long, float
-        if (status.equals("troca de motorista")) {
+        if (motivo.equals("troca de motorista")) {
             this.motorista = motorista;
         }
     }

@@ -40,4 +40,14 @@ public class EntregaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(novaEntrega);
     }
 
+    @PutMapping("/{id}")
+    public Entrega atualizar(@PathVariable Long id, @RequestBody EntregasRequestDTO dto) {
+        return service.atualizar(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        service.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
 }

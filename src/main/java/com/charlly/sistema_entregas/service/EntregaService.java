@@ -47,4 +47,21 @@ public class EntregaService {
         Entrega entrega = new Entrega(dto.getDestino(), dto.getStatus(), dto.getMotorista());
         return repository.save(entrega);
     }
+
+    public Entrega atualizar(Long id, EntregasRequestDTO dto) {
+        Entrega entrega = repository.findById(id)
+            .orElseThrow(() -> new EntregaNaoEncontradaException(id));
+        
+        entrega.setStatus(dto.getStatus());
+        entrega.setMotorista(dto.getMotorista());
+
+        return repository.save(entrega);
+    }
+
+    public void deletar(Long id) {
+        if (!repository.existsById(id)) {
+            throw new EntregaNaoEncontradaException(id);
+        }
+        repository.deleteById(id);
+    }
 }

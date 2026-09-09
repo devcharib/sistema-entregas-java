@@ -1,16 +1,30 @@
 package com.charlly.sistema_entregas.model;
 
+// transformando a classe para o HIBERNATE
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity 
 public class Entrega {
     //atributos
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String destino;
     private String status;
     //revisão
     private String motorista;
 
     //construtor
-    public Entrega(Long id, String destino, String status, String motorista) {
-        this.id = id;
+    //para o JPA
+    public Entrega() {
+
+    }
+    // sem ID porque sera criado pelo banco auto
+    public Entrega(String destino, String status, String motorista) {
         this.destino = destino;
         this.status = status;
         //revisão

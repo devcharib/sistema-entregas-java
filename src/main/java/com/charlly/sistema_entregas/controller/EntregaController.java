@@ -1,46 +1,33 @@
 package com.charlly.sistema_entregas.controller;
 
-import com.charlly.sistema_entregas.exception.EntregaNaoEncontradaException;
-import com.charlly.sistema_entregas.exception.MotoristaSemEntregaException;
 import com.charlly.sistema_entregas.model.Entrega;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import com.charlly.sistema_entregas.service.EntregaService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-@RestController
+@RestController 
+@RequestMapping("/entregas")
 public class EntregaController {
-    
-    @GetMapping("/entregas")
+    private final EntregaService service;
+
+    public EntregaController(EntregaService service) {
+        this.service = service;
+    }
+
+    @GetMapping
     public List<Entrega> listarEntregas() {
-        return List.of(
-            new Entrega(1L, "Rua A, 123", "pendente", "João"),
-            new Entrega(2L, "Rua B, 456", "em transito", "Pedro"),
-            new Entrega(3L, "Rua C, 789", "entregue", "Diego")
-        );
+        return service.listarTodas();
     }
 
-    @GetMapping("/entregas/{id}")
+    @GetMapping("/{id}")
     public Entrega buscaPorId(@PathVariable Long id) {
-        return listarEntregas().stream()
-            .filter(e -> e.getId().equals(id))
-            .findFirst()
-            .orElseThrow(() -> new EntregaNaoEncontradaException(id));
+        return service.buscaPorId(id);
     }
 
-    //revisao
-    @GetMapping("/entregas/motorista/{motorista}")
-    public List<Entrega> buscaPorMotorista(@PathVariable String motorista) {
-        List<Entrega> resultado = listarEntregas().stream()
-            .filter(e -> e.getMotorista().equals(motorista))
-            .collect(Collectors.toList());
-
-        if (resultado.isEmpty()) {
-            throw new MotoristaSemEntregaException(motorista);
-        }
-        return resultado;
+    @GetMapping("/motorista/{motorista}")
+    public List<Entrega> buscarPorMotorista(@PathVariable String motorista) {
+        return service.buscaPorMotorista(motorista);
     }
 
 }

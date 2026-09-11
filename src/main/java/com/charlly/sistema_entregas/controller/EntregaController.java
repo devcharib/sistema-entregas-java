@@ -4,6 +4,8 @@ import com.charlly.sistema_entregas.dto.EntregasRequestDTO;
 import com.charlly.sistema_entregas.model.Entrega;
 import com.charlly.sistema_entregas.service.EntregaService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +37,7 @@ public class EntregaController {
     }
 
     @PostMapping
-    public ResponseEntity<Entrega> criar(@RequestBody EntregasRequestDTO dto) {
+    public ResponseEntity<Entrega> criar(@Valid @RequestBody EntregasRequestDTO dto) {
         Entrega novaEntrega = service.criar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaEntrega);
     }

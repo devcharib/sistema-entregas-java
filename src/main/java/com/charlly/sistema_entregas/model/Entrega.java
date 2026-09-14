@@ -52,7 +52,7 @@ public class Entrega {
         this.status = status;
     }
 
-    //Setter simples, para atualização deral (PUT comum)
+    //Setter simples, para atualização geral (PUT comum)
     public void setMotorista(String motorista) {
         this.motorista = motorista;
     }

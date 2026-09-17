@@ -1,6 +1,6 @@
 package com.charlly.sistema_entregas.service;
 
-import com.charlly.sistema_entregas.dto.EntregasRequestDTO;
+import com.charlly.sistema_entregas.dto.EntregaRequestDTO;
 import com.charlly.sistema_entregas.exception.EntregaNaoEncontradaException;
 import com.charlly.sistema_entregas.exception.MotoristaSemEntregaException;
 import com.charlly.sistema_entregas.model.Entrega;
@@ -43,17 +43,18 @@ public class EntregaService {
         return repository.save(entrega);
     }
 
-    public Entrega criar(EntregasRequestDTO dto) {
-        Entrega entrega = new Entrega(dto.getDestino(), dto.getStatus(), dto.getMotorista());
+    public Entrega criar(EntregaRequestDTO dto) {
+        Entrega entrega = new Entrega(dto.getDestino(), dto.getStatus(), dto.getMotorista(), dto.getPeso());
         return repository.save(entrega);
     }
 
-    public Entrega atualizar(Long id, EntregasRequestDTO dto) {
+    public Entrega atualizar(Long id, EntregaRequestDTO dto) {
         Entrega entrega = repository.findById(id)
             .orElseThrow(() -> new EntregaNaoEncontradaException(id));
         
         entrega.setStatus(dto.getStatus());
         entrega.setMotorista(dto.getMotorista());
+        entrega.setPeso(dto.getPeso());
 
         return repository.save(entrega);
     }

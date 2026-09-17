@@ -1,8 +1,10 @@
 package com.charlly.sistema_entregas.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
-public class EntregasRequestDTO {
+public class EntregaRequestDTO {
 
     // mensagens de validação @VALID
     @NotBlank(message = "Destino é obrigatório")
@@ -13,8 +15,12 @@ public class EntregasRequestDTO {
 
     @NotBlank(message = "Motorista é obrigatório")
     private String motorista;
+    
+    @NotNull(message = "Peso é obrigatorio")
+    @Positive(message = "Peso deve ser maior que zero")
+    private Double peso;
 
-    public EntregasRequestDTO() {
+    public EntregaRequestDTO() {
     }
 
     public String getDestino() {
@@ -39,5 +45,13 @@ public class EntregasRequestDTO {
 
     public void setMotorista(String motorista) {
         this.motorista = motorista;
+    }
+
+    public Double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(Double peso) {
+        this.peso = peso;
     }
 }

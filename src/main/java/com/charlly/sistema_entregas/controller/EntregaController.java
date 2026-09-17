@@ -1,6 +1,6 @@
 package com.charlly.sistema_entregas.controller;
 
-import com.charlly.sistema_entregas.dto.EntregasRequestDTO;
+import com.charlly.sistema_entregas.dto.EntregaRequestDTO;
 import com.charlly.sistema_entregas.model.Entrega;
 import com.charlly.sistema_entregas.service.EntregaService;
 
@@ -37,13 +37,13 @@ public class EntregaController {
     }
 
     @PostMapping
-    public ResponseEntity<Entrega> criar(@Valid @RequestBody EntregasRequestDTO dto) {
+    public ResponseEntity<Entrega> criar(@Valid @RequestBody EntregaRequestDTO dto) {
         Entrega novaEntrega = service.criar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaEntrega);
     }
 
     @PutMapping("/{id}")
-    public Entrega atualizar(@PathVariable Long id, @RequestBody EntregasRequestDTO dto) {
+    public Entrega atualizar(@PathVariable Long id, @RequestBody EntregaRequestDTO dto) {
         return service.atualizar(id, dto);
     }
 

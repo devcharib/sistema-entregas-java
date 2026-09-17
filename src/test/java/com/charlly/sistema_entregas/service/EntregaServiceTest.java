@@ -27,7 +27,7 @@ public class EntregaServiceTest {
     @Test
     void deveBuscarEntregaPorIdComSucesso() {
         // A cenario
-        Entrega entrega = new Entrega("Rua A, 123", "pendente", "João");
+        Entrega entrega = new Entrega("Rua A, 123", "pendente", "João", 15.0);
         when(repository.findById(1L)).thenReturn(Optional.of(entrega));
 
         // A ação

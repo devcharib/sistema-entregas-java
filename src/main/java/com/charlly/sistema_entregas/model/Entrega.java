@@ -17,6 +17,8 @@ public class Entrega {
     private String status;
     //revisão
     private String motorista;
+    //gitHub review
+    private Double peso;
 
     //construtor
     //para o JPA
@@ -24,11 +26,12 @@ public class Entrega {
 
     }
     // sem ID porque sera criado pelo banco auto
-    public Entrega(String destino, String status, String motorista) {
+    public Entrega(String destino, String status, String motorista, Double peso) {
         this.destino = destino;
         this.status = status;
         //revisão
         this.motorista = motorista;
+        this.peso = peso;
     }
 
     //metodos
@@ -48,6 +51,11 @@ public class Entrega {
         return motorista;
     }
 
+    //github review
+    public Double getPeso(){
+        return peso;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
@@ -55,6 +63,10 @@ public class Entrega {
     //Setter simples, para atualização geral (PUT comum)
     public void setMotorista(String motorista) {
         this.motorista = motorista;
+    }
+
+    public void setPeso(Double peso) {
+        this.peso = peso;
     }
 
     //metodo de negócio específico, com justificativa - JAVA nao permite reaproveiar metodo e ass iguais

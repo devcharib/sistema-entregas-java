@@ -6,6 +6,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+//adicionando relacionamento com Motorista
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+
 @Entity 
 public class Entrega {
     //atributos
@@ -16,7 +20,12 @@ public class Entrega {
     private String destino;
     private String status;
     //revisão
-    private String motorista;
+    // private String motorista;
+
+    @ManyToOne
+    @JoinColumn(name = "motorista_id")
+    private Motorista motorista;
+
     //gitHub review
     private Double peso;
 
@@ -26,7 +35,7 @@ public class Entrega {
 
     }
     // sem ID porque sera criado pelo banco auto
-    public Entrega(String destino, String status, String motorista, Double peso) {
+    public Entrega(String destino, String status, Motorista motorista, Double peso) {
         this.destino = destino;
         this.status = status;
         //revisão
@@ -47,7 +56,7 @@ public class Entrega {
         return status;
     }
     //revisao
-    public String getMotorista() {
+    public Motorista getMotorista() {
         return motorista;
     }
 
@@ -61,7 +70,7 @@ public class Entrega {
     }
 
     //Setter simples, para atualização geral (PUT comum)
-    public void setMotorista(String motorista) {
+    public void setMotorista(Motorista motorista) {
         this.motorista = motorista;
     }
 
@@ -71,7 +80,7 @@ public class Entrega {
 
     //metodo de negócio específico, com justificativa - JAVA nao permite reaproveiar metodo e ass iguais
     //revisao - caso o motorista fique doente/problema antes de concluir a entrega
-    public void trocarMotorista(String motorista, String motivo) {
+    public void trocarMotorista(Motorista motorista, String motivo) {
         //.equals para String
         // ==  para int, long, float
         if (motivo.equals("troca de motorista")) {

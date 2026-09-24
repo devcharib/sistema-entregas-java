@@ -2,6 +2,7 @@ package com.charlly.sistema_entregas.service;
 
 import com.charlly.sistema_entregas.exception.EntregaNaoEncontradaException;
 import com.charlly.sistema_entregas.model.Entrega;
+import com.charlly.sistema_entregas.model.Motorista;
 import com.charlly.sistema_entregas.repository.EntregaRepository;
 
 import org.junit.jupiter.api.Test;
@@ -27,7 +28,8 @@ public class EntregaServiceTest {
     @Test
     void deveBuscarEntregaPorIdComSucesso() {
         // A cenario
-        Entrega entrega = new Entrega("Rua A, 123", "pendente", "João", 15.0);
+        Motorista motorista = new Motorista("Pedro", "85998789878");
+        Entrega entrega = new Entrega("Rua A, 123", "pendente", motorista, 15.0);
         when(repository.findById(1L)).thenReturn(Optional.of(entrega));
 
         // A ação

@@ -13,8 +13,8 @@ public class EntregaRequestDTO {
     @NotBlank(message = "Status é obrigatório")
     private String status;
 
-    @NotBlank(message = "Motorista é obrigatório")
-    private String motorista;
+    @NotNull(message = "Motorista é obrigatório")
+    private Long motoristaId;
     
     @NotNull(message = "Peso é obrigatorio")
     @Positive(message = "Peso deve ser maior que zero")
@@ -39,12 +39,12 @@ public class EntregaRequestDTO {
         this.status = status;
     }
 
-    public String getMotorista() {
-        return motorista;
+    public Long getMotoristaId() {
+        return motoristaId;
     }
 
-    public void setMotorista(String motorista) {
-        this.motorista = motorista;
+    public void setMotoristaId(Long motoristaId) {
+        this.motoristaId = motoristaId;
     }
 
     public Double getPeso() {

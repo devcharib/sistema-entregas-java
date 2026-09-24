@@ -23,8 +23,16 @@ public class GlobalExceptionHandler {
 
     //revisao
     @ExceptionHandler(MotoristaSemEntregaException.class)
-    public ResponseEntity<String> tratarMotoristaNaoEncontrado(MotoristaSemEntregaException ex) {
+    public ResponseEntity<String> tratarMotoristaSemEntrega(MotoristaSemEntregaException ex) {
         return  ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(ex.getMessage());
+    }
+
+    //motorista
+    @ExceptionHandler(MotoristaNaoEncontradoException.class)
+    public ResponseEntity<String> tratarMotoristaNaoEncontrado(MotoristaNaoEncontradoException ex) {
+        return ResponseEntity
             .status(HttpStatus.NOT_FOUND)
             .body(ex.getMessage());
     }

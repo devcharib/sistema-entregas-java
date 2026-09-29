@@ -6,9 +6,16 @@ import com.charlly.sistema_entregas.service.EntregaService;
 
 import jakarta.validation.Valid;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -21,9 +28,20 @@ public class EntregaController {
         this.service = service;
     }
 
+    // @GetMapping
+    // public List<Entrega> listarEntregas() {
+    //     return service.listarTodas();
+    // }
+
+    //pageable
     @GetMapping
-    public List<Entrega> listarEntregas() {
-        return service.listarTodas();
+    public Page<Entrega> listarEntregas(
+        @RequestParam(defaultValue = "0") int pagina, 
+        @RequestParam(defaultValue = "10") int tamanho, 
+        @RequestParam(defaultValue = "id") String ordenarPor) {
+
+        Pageable pageable = PageRequest.of(pagina, tamanho, Sort.by(ordenarPor));
+        return service.listarTodas(pageable);
     }
 
     @GetMapping("/{id}")

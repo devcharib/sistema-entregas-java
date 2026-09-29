@@ -51,4 +51,12 @@ public class GlobalExceptionHandler {
             .body(erros);
     }
 
+    //Ordenação
+    @ExceptionHandler(OrdenacaoInvalidaException.class)
+    public ResponseEntity<String> tratarOrdenacaoInvalida(OrdenacaoInvalidaException ex) {
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(ex.getMessage());
+    }
+
 }

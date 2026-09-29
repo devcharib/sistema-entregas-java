@@ -4,12 +4,20 @@ import com.charlly.sistema_entregas.dto.EntregaRequestDTO;
 import com.charlly.sistema_entregas.exception.EntregaNaoEncontradaException;
 import com.charlly.sistema_entregas.exception.MotoristaNaoEncontradoException;
 import com.charlly.sistema_entregas.exception.MotoristaSemEntregaException;
+import com.charlly.sistema_entregas.exception.OrdenacaoInvalidaException;
+
+
 import com.charlly.sistema_entregas.model.Entrega;
 import com.charlly.sistema_entregas.model.Motorista;
 import com.charlly.sistema_entregas.repository.EntregaRepository;
 import com.charlly.sistema_entregas.repository.MotoristaRepository;
 
+// import org.springframework.boot.data.autoconfigure.web.DataWebProperties.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -19,6 +27,10 @@ public class EntregaService {
     private final EntregaRepository repository;
     private final MotoristaRepository motoristaRepository;
 
+    //tratamento de campos permitidos
+    private static final List<String> CAMPOS_PERMITIDOS = List.of("id", "destino", "status", "peso");
+
+    
     //injeção de  dependencia via construtor
     public EntregaService(EntregaRepository repository, MotoristaRepository motoristaRepository) {
         this.repository = repository;
@@ -26,8 +38,21 @@ public class EntregaService {
     }
 
 
-    public List<Entrega> listarTodas() {
-        return repository.findAll();
+    // public List<Entrega> listarTodas() {
+    //     return repository.findAll();
+    // }
+    //pageable
+    public Page<Entrega> listarTodas(Pageable pageable) {
+        String campoOrdenacao = pageable.getSort().stream()
+            .findFirst()
+            .map(Sort.Order::getProperty)
+            .orElse("id");
+
+        if (!CAMPOS_PERMITIDOS.contains(campoOrdenacao)) {
+            throw new OrdenacaoInvalidaException(campoOrdenacao);
+        }
+
+        return repository.findAll(pageable);
     }
 
     public Entrega buscaPorId(long id) {

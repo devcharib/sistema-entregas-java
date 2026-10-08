@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.charlly.sistema_entregas.repository.UsuarioRepository;
 import com.charlly.sistema_entregas.dto.UsuarioRequestDTO;
 import com.charlly.sistema_entregas.dto.UsuarioResponseDTO;
+import com.charlly.sistema_entregas.exception.LoginJaCadastradoException;
 import com.charlly.sistema_entregas.model.Usuario;
 
 @Service 
@@ -28,6 +29,10 @@ public class UsuarioService {
     }
 
     public UsuarioResponseDTO criar(UsuarioRequestDTO dto) {
+        if (repository.existsByLogin(dto.getLogin())) {
+            throw new LoginJaCadastradoException(dto.getLogin());
+        }
+        
         Usuario usuario = new Usuario(dto.getLogin(), passwordEncoder.encode(dto.getSenha()));
         Usuario salvo = repository.save(usuario);
         return new UsuarioResponseDTO(salvo.getId(), salvo.getLogin());

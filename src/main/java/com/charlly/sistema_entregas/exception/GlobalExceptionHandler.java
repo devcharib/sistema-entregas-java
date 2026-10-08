@@ -59,4 +59,11 @@ public class GlobalExceptionHandler {
             .body(ex.getMessage());
     }
 
+    // Login
+    @ExceptionHandler(LoginJaCadastradoException.class)
+    public ResponseEntity<String> tratarLoginJaCadastrado(LoginJaCadastradoException ex) {
+        return ResponseEntity
+            .status(HttpStatus.CONFLICT)
+            .body(ex.getMessage());
+    }
 }
